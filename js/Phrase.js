@@ -8,7 +8,9 @@ class Phrase {
         this.splitPhrase = this.phrase.split('');
         this.phraseDiv = document.getElementById('phrase');
         this.ul = this.phraseDiv.firstElementChild
-        this.liList = this.ul.children
+        this.liList = this.ul.children;
+        this.lettersLeft = 0
+        this.lettersPlayed = 0;
     }
 
     addPhraseToDisplay() {
@@ -19,7 +21,8 @@ class Phrase {
             if (letter === ' ') {
                 li.classList = 'space';
             } else {
-                li.classList = `hide letter ${letter}`
+                li.classList = `hide letter ${letter}`;
+                this.lettersLeft++
             }
             li.innerHTML = `${letter}`;
             this.ul.appendChild(li)
@@ -31,6 +34,7 @@ class Phrase {
             console.log('please guess a letter')
             return false
         } else if (this.phrase.includes(guess)) {
+            this.lettersPlayed++
             return true
         } else {
             return false
@@ -46,9 +50,9 @@ class Phrase {
     }
 }
 
-const fart = new Phrase('hello eat me')
-let guess = 'h'
-fart.addPhraseToDisplay()
-fart.checkLetter(guess)
-fart.showMatchedLetter(guess)
+// const gamePhrase = new Phrase('hello eat me')
+// guess = 'h'
+// gamePhrase.addPhraseToDisplay()
+// gamePhrase.checkLetter(guess)
+// gamePhrase.showMatchedLetter(guess)
 
