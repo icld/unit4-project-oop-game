@@ -2,17 +2,18 @@
  * Project 4 - OOP Game App
  * Phrase.js */
 
+// creates class Phrase
 class Phrase {
     constructor(phrase) {
         this.phrase = phrase.toLowerCase();
         this.splitPhrase = this.phrase.split('');
+        this.phraseNoSpaces = this.phrase.replace(/ /g, '')
         this.phraseDiv = document.getElementById('phrase');
         this.ul = this.phraseDiv.firstElementChild
         this.liList = this.ul.children;
-        this.lettersLeft = 0
-        this.lettersPlayed = 0;
     }
 
+    // adds the created phrase to the game board
     addPhraseToDisplay() {
         console.log(this.splitPhrase);
         console.log(this.liList)
@@ -21,38 +22,31 @@ class Phrase {
             if (letter === ' ') {
                 li.classList = 'space';
             } else {
-                li.classList = `hide letter ${letter}`;
-                this.lettersLeft++
+                li.classList = `hide letter ${letter}`
             }
             li.innerHTML = `${letter}`;
             this.ul.appendChild(li)
         });
     }
 
-    checkLetter(guess) {
-        if (guess === '' || guess === ' ') {
+    // checks if guessed letter is present in activePhrase
+    checkLetter(letter) {
+        if (letter === '' || letter === ' ') {
             console.log('please guess a letter')
             return false
-        } else if (this.phrase.includes(guess)) {
-            this.lettersPlayed++
+        } else if (this.phrase.includes(letter)) {
             return true
         } else {
             return false
         }
     }
+
+    // reveals letter in gameboard.  
     showMatchedLetter(guess) {
         [...this.liList].forEach(li => {
             if (li.textContent === guess) {
                 li.className = `show letter ${guess}`
-                console.log(`correctly guessed ${guess}`)
             }
         })
     }
 }
-
-// const gamePhrase = new Phrase('hello eat me')
-// guess = 'h'
-// gamePhrase.addPhraseToDisplay()
-// gamePhrase.checkLetter(guess)
-// gamePhrase.showMatchedLetter(guess)
-
