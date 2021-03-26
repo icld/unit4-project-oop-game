@@ -18,15 +18,16 @@ const keys = [...keysCollect]
 keys.forEach(key => key.addEventListener('click', event => { game.handleInteraction(event.target.innerHTML) }));
 
 // allows selection of button with keyboard 
-keys.forEach(key => key.addEventListener('keyup', event => {
+keys.forEach(key => key.addEventListener('keydown', event => {
     if (event.keyCode === 13) {
-        game.handleInteraction(event)
+        game.handleInteraction(event.target.innerHTML)
     }
 }))
 
 document.addEventListener('keydown', event => {
-    const regEx = /[a-z]/
+    const regEx = /^[a-z]$/g
     if (regEx.test(event.key)) {
+        console.log('works')
         game.handleInteraction(event.key)
     }
 })
@@ -40,7 +41,7 @@ function resetGame() {
     heartsArr.forEach(heart => heart.src = "images/liveHeart.png")
 
     const buttons = document.getElementsByTagName('button')
-    for (button of buttons) {
+    for (let button of buttons) {
         if (button.disabled === true) {
             button.className = 'key';
             button.disabled = false

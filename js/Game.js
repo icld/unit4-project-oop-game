@@ -37,6 +37,7 @@ class Game {
 
     // handles each letter selection, resulting action, and style changes
     handleInteraction(event) {
+
         let buttons = document.getElementsByClassName('key')
         let selected;
         for (let button of buttons) {
@@ -44,19 +45,18 @@ class Game {
                 selected = button
                 console.log(selected)
                 button.disabled = true
-            }
-        }
-
-        let checkedLetter = this.activePhrase.checkLetter(event)
-        if (checkedLetter === false) {
-            selected.classList = 'wrong';
-            this.removeLife()
-        } else if (checkedLetter === true) {
-            selected.classList = 'chosen';
-            this.activePhrase.showMatchedLetter(event);
-            this.checkForWin();
-            if (this.checkForWin() === true) {
-                this.gameOver()
+                let checkedLetter = this.activePhrase.checkLetter(event)
+                if (checkedLetter === false) {
+                    selected.classList = 'wrong';
+                    this.removeLife()
+                } else if (checkedLetter === true) {
+                    selected.classList = 'chosen';
+                    this.activePhrase.showMatchedLetter(event);
+                    this.checkForWin();
+                    if (this.checkForWin() === true) {
+                        this.gameOver()
+                    }
+                }
             }
         }
     }
