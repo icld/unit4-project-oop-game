@@ -17,13 +17,14 @@ const keys = [...keysCollect]
 // adds listener to all keyboard keys
 keys.forEach(key => key.addEventListener('click', event => { game.handleInteraction(event.target.innerHTML) }));
 
-// allows selection of button with keyboard 
+// allows selection of button with enter key
 keys.forEach(key => key.addEventListener('keydown', event => {
     if (event.keyCode === 13) {
         game.handleInteraction(event.target.innerHTML)
     }
 }))
 
+// creates funciontality of the physical keyboard to select the onscreen keys
 document.addEventListener('keydown', event => {
     const regEx = /^[a-z]$/g
     if (regEx.test(event.key)) {
