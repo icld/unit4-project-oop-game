@@ -7,7 +7,13 @@
 class Game {
     constructor() {
         this.missed = 0;
-        this.phrases = ['The Hubble Telescope', 'Interplanetary Exploration', 'Mars Rover', 'Space X', 'Super Nova'];
+        this.phrases = [
+            new Phrase('The Hubble Telescope'),
+            new Phrase('Interplanetary Exploration'),
+            new Phrase('Mars Rover'),
+            new Phrase('Space X'),
+            new Phrase('Super Nova')
+        ];
         this.activePhrase = null;
     }
 
@@ -16,9 +22,9 @@ class Game {
         const overLay = document.getElementById('overlay');
         overLay.style.transition = "all 1s"
         overLay.style.opacity = 0
-
         setTimeout(() => { overLay.style.display = 'none' }, 1000)
-        this.activePhrase = new Phrase(this.getRandomPhrase());
+
+        this.activePhrase = this.getRandomPhrase();
         this.activePhrase.addPhraseToDisplay()
     }
 
@@ -31,16 +37,23 @@ class Game {
 
     // handles each letter selection, resulting action, and style changes
     handleInteraction(event) {
-        let button = event.target;
-        button.disabled = true
-        let guess = button.innerHTML.toLowerCase()
-        let checkedLetter = this.activePhrase.checkLetter(guess)
+        let buttons = document.getElementsByClassName('key')
+        let selected;
+        for (let button of buttons) {
+            if (button.innerHTML === event) {
+                selected = button
+                console.log(selected)
+                button.disabled = true
+            }
+        }
+
+        let checkedLetter = this.activePhrase.checkLetter(event)
         if (checkedLetter === false) {
-            button.classList = 'wrong';
+            selected.classList = 'wrong';
             this.removeLife()
         } else if (checkedLetter === true) {
-            button.classList = 'chosen';
-            this.activePhrase.showMatchedLetter(guess);
+            selected.classList = 'chosen';
+            this.activePhrase.showMatchedLetter(event);
             this.checkForWin();
             if (this.checkForWin() === true) {
                 this.gameOver()
@@ -88,10 +101,10 @@ class Game {
         const h1 = document.getElementById('game-over-message')
         if (this.checkForWin() === true) {
             h1.textContent = `YOU'RE A HUGE WINNER!`
-            h1.className = 'win';
+            overlay.className = 'win';
         } else if (this.checkForWin() === false) {
             h1.textContent = `BUMMER YOU'RE NOT A HUGE WINNER!`
-            h1.className = 'lose'
+            overlay.className = 'lose'
         }
     }
 }

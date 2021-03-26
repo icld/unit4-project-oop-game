@@ -2,14 +2,7 @@
  * Project 4 - OOP Game App
  * app.js */
 
-
 const startButton = document.getElementById('btn__reset')
-let game = new Game
-
-let h3 = document.createElement('h3')
-h3.style.display = ''
-h3.innerHTML = `use <strong>Tab</strong> to move to next button.  <br><strong>Shift-Tab</strong> to move back`
-document.getElementById('banner').appendChild(h3)
 
 //resets game, creates a new game, and starts game on button click
 startButton.addEventListener('click', e => {
@@ -22,7 +15,7 @@ const keysCollect = document.getElementsByClassName('key');
 const keys = [...keysCollect]
 
 // adds listener to all keyboard keys
-keys.forEach(key => key.addEventListener('click', event => { game.handleInteraction(event) }));
+keys.forEach(key => key.addEventListener('click', event => { game.handleInteraction(event.target.innerHTML) }));
 
 // allows selection of button with keyboard 
 keys.forEach(key => key.addEventListener('keyup', event => {
@@ -30,6 +23,13 @@ keys.forEach(key => key.addEventListener('keyup', event => {
         game.handleInteraction(event)
     }
 }))
+
+document.addEventListener('keydown', event => {
+    const regEx = /[a-z]/
+    if (regEx.test(event.key)) {
+        game.handleInteraction(event.key)
+    }
+})
 
 // replenishes hearts, resets button states, removes previously active phrase
 function resetGame() {
