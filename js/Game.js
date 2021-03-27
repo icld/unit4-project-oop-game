@@ -38,14 +38,13 @@ class Game {
     // handles each letter selection, resulting action, and style changes
     handleInteraction(event) {
 
-        let buttons = document.getElementsByClassName('key')
+        const buttons = document.getElementsByClassName('key')
         let selected;
         for (let button of buttons) {
             if (button.innerHTML === event) {
                 selected = button
-                console.log(selected)
                 button.disabled = true
-                let checkedLetter = this.activePhrase.checkLetter(event)
+                const checkedLetter = this.activePhrase.checkLetter(event)
                 if (checkedLetter === false) {
                     selected.classList = 'wrong';
                     this.removeLife()
@@ -63,9 +62,8 @@ class Game {
 
     // changes heart imgs to reflect missed attempts
     removeLife() {
-        let lives = document.getElementsByTagName('img');
+        const lives = document.getElementsByTagName('img');
         lives[this.missed].src = "images/lostHeart.png"
-        console.log('heart removed', this.missed)
         this.missed += 1
         if (this.missed === 5) {
             this.gameOver()
@@ -75,7 +73,7 @@ class Game {
     // compares letters revealed to the number of letters in the phrase.  
     checkForWin() {
         let lettersShown = 0
-        let list = this.activePhrase.liList
+        const list = this.activePhrase.liList
         for (let li of list) {
             if (li.className.startsWith('hide') || this.missed === 5) {
                 return false

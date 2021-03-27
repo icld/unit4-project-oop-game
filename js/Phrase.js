@@ -15,8 +15,6 @@ class Phrase {
 
     // adds the created phrase to the game board
     addPhraseToDisplay() {
-        console.log(this.splitPhrase);
-        console.log(this.liList)
         this.splitPhrase.forEach(letter => {
             const li = document.createElement('li')
             if (letter === ' ') {
@@ -40,7 +38,6 @@ class Phrase {
             return false
         }
     }
-
     // reveals letter in gameboard.  
     showMatchedLetter(guess) {
         [...this.liList].forEach(li => {

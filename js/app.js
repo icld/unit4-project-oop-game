@@ -28,7 +28,6 @@ keys.forEach(key => key.addEventListener('keydown', event => {
 document.addEventListener('keydown', event => {
     const regEx = /^[a-z]$/g
     if (regEx.test(event.key)) {
-        console.log('works')
         game.handleInteraction(event.key)
     }
 })
@@ -37,8 +36,8 @@ document.addEventListener('keydown', event => {
 function resetGame() {
     document.getElementById('phrase').firstElementChild.innerHTML = ''
 
-    let hearts = document.getElementsByTagName('img')
-    let heartsArr = [...hearts]
+    const hearts = document.getElementsByTagName('img')
+    const heartsArr = [...hearts]
     heartsArr.forEach(heart => heart.src = "images/liveHeart.png")
 
     const buttons = document.getElementsByTagName('button')
